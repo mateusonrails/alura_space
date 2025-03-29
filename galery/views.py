@@ -1,14 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from galery.models import Image
 
 
 def index(request):
-    data = {
-        1: { 'name': 'Nebulosa de Carina', 'caption': 'Webtelescope.org / NASA / James Webb'},
-        2: { 'name': 'Galáxia NGC 1079', 'caption': 'nasa.org / NASA / Hubble'}
-    }
+    images = Image.objects.all()
+    return render (request, 'galery/index.html', { 'cards': images })
 
-    return render (request, 'galery/index.html', { 'cards': data })
-
-def image(request):
-    return render(request, 'galery/image.html')
+def image(request, image_id):
+    image = get_object_or_404(Image, pk=image_id)
+    return render(request, 'galery/image.html', { 'image': image })

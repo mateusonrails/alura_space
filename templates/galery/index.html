@@ -20,23 +20,26 @@
                     <div class="cards">
                         <h2 class="cards__titulo">Navegue pela galeria</h2>
                         <ul class="cards__lista">
-                            {% for image_id, info in cards.items %}
-                            <li class="card">
-                                <a href="{% url 'image' %}">
-                                    <img class="card__imagem" src="{%static '/assets/imagens/galeria/carina-nebula.png' %}" alt="foto">
-                                </a>
-                                <span class="card__tag">Estrelas</span>
-                                <div class="card__info">
-                                    <p class="card__titulo">{{ info.name }}</p>
-                                    <div class="card__texto">
-                                        <p class="card__descricao">{{ info.caption }}</p>
-                                        <span>
-                                            <img src="{%static '/assets/ícones/1x/favorite_outline.png' %}" alt="ícone de coração">
-                                        </span>
+                            {% if cards %}
+                                {% for image in cards %}
+                                <li class="card">
+                                    <a href="{% url 'image' image.id %}">
+                                        <img class="card__imagem" src="{%static '/assets/imagens/galeria/'%}{{ image.photograph }}" alt="foto">
+                                    </a>
+                                    <span class="card__tag">Estrelas</span>
+                                    <div class="card__info">
+                                        <p class="card__titulo">{{ image.name }}</p>
+                                        <div class="card__texto">
+                                            <p class="card__descricao">{{ image.caption }}</p>
+                                            <span>
+                                                <img src="{%static '/assets/ícones/1x/favorite_outline.png' %}" alt="ícone de coração">
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            {% endfor %}
+                                </li>
+                                {% endfor %}
+                            {% else %}
+                            {% endif %}
                         </ul>
                     </div>
                 </section>
