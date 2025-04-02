@@ -40,11 +40,6 @@ def register(request):
         form = RegisterForms(request.POST)
 
         if form.is_valid():
-            if form['password_1'].value() != form['password_2'].value():
-                messages.error(request, "As senhas não são iguais.")
-
-                return redirect('register')
-
             name=form['name_register'].value()
             email=form['email'].value()
             password=form['password_1'].value()
