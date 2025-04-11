@@ -30,3 +30,12 @@ def search(request):
             images = images.filter(name__icontains=search_name)
 
     return render(request, 'galery/search.html', { 'cards': images })
+
+def new_image(request):
+    return render(request, 'galery/new_image.html')
+
+def edit_image(request):
+    pass
+
+def delete_image(request):
+    pass
