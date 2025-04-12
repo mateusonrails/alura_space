@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from apps.galery.models import Image
+from apps.galery.forms import ImageForms
 from django.contrib import messages
 
 
@@ -32,7 +33,19 @@ def search(request):
     return render(request, 'galery/search.html', { 'cards': images })
 
 def new_image(request):
-    return render(request, 'galery/new_image.html')
+    if not request.user.is_authenticated:
+        messages.error(request, 'Usuário não logado')
+        return redirect('login')
+
+    form = ImageForms
+    if request.method == 'POST':
+        form = ImageForms(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Nova fotografia cadastrada!')
+            return redirect('index')
+
+    return render(request, 'galery/new_image.html', {'form': form})
 
 def edit_image(request):
     pass

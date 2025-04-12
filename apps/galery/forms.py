@@ -1,10 +1,19 @@
 from django import forms
 from apps.galery.models import Image
 
-class ImageForms(forms.ModelForms):
+class ImageForms(forms.ModelForm):
     class Meta:
         model = Image
         exclude = ['published',]
+        labels = {
+            'name': 'Nome',
+            'caption': 'Legenda',
+            'category': 'Categoria',
+            'description': 'Descrição',
+            'photograph': 'Foto',
+            'date_photograph': 'Data de Registro',
+            'user': 'Usuário'
+        }
 
         widgets = {
             'name': forms.TextInput(attrs={'class':'form-control'}),

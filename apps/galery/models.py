@@ -16,7 +16,7 @@ class Image(models.Model):
     category = models.CharField(max_length=100, choices=CATEGORIES, default='')
     description = models.TextField(null=False, blank=False)
     photograph = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True)
-    published = models.BooleanField(default=False)
+    published = models.BooleanField(default=True)
     date_photograph = models.DateTimeField(default=datetime.now, blank=False)
     user = models.ForeignKey(
         to=User,
