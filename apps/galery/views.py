@@ -42,13 +42,24 @@ def new_image(request):
         form = ImageForms(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Nova fotografia cadastrada!')
+            messages.success(request, 'Nova imagem cadastrada!')
             return redirect('index')
 
     return render(request, 'galery/new_image.html', {'form': form})
 
-def edit_image(request):
-    pass
+def edit_image(request, image_id):
+    image = Image.objects.get(id=image_id)
+    form = ImageForms(instance=image)
+
+    if request.method == 'POST':
+        form = ImageForms(request.POST, request.FILES, instance=image)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Imagem editada com sucesso!')
+            return redirect('index')
+
+
+    return render(request, 'galery/edit_image.html', {'form': form, 'image_id': image_id} )
 
 def delete_image(request):
     pass

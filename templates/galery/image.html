@@ -17,7 +17,7 @@
                                 <p class="imagem__texto">{{ image.description }}</p>
                             </div>
                             <div>
-                                <a href="{% url 'edit_image'%}">
+                                <a href="{% url 'edit_image' image.id %}">
                                     <button class="btn btn-success col-12" style="padding: top 5px;" type="submit">Editar</button>
                                 </a>
                                 <a href="{% url 'delete_image'%}">
