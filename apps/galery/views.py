@@ -30,7 +30,7 @@ def search(request):
         if search_name:
             images = images.filter(name__icontains=search_name)
 
-    return render(request, 'galery/search.html', { 'cards': images })
+    return render(request, 'galery/index.html', { 'cards': images })
 
 def new_image(request):
     if not request.user.is_authenticated:
@@ -67,4 +67,7 @@ def delete_image(request, image_id):
     messages.success(request, 'Imagem deletada com sucesso!')
     return redirect('index')
 
-    
+def filter(request, category):
+    images = Image.objects.order_by('date_photograph').filter(published=True, category=category)
+
+    return render(request, 'galery/index.html', { 'cards': images })
